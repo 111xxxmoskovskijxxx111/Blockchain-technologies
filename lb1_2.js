@@ -106,9 +106,9 @@ class Blockchain {
 
 // 5. Демонстрація
 
-const v1 = new Validator("Alice", 5);
-const v2 = new Validator("Bob", 10);
-const v3 = new Validator("Charlie", 1);
+const v1 = new Validator("Дмитро", 5);
+const v2 = new Validator("Олег", 10);
+const v3 = new Validator("Даня", 1);
 
 const validators = [v1, v2, v3];
 const myBlockchain = new Blockchain(validators);
@@ -139,5 +139,6 @@ console.log("Частота перемог валідаторів за 50 бло
 for (let name in stats) {
   console.log(`${name}: ${stats[name]} (${((stats[name]/50)*100).toFixed(1)}%)`);
 }
+
 
 
