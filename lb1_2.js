@@ -1,8 +1,8 @@
 import crypto from "crypto";
-// лаба 2
-// ---------------------------
+
+
 // 1. Клас Валідатора
-// ---------------------------
+
 class Validator {
   constructor(name, stake) {
     this.name = name;   // Ідентифікатор валідатора
@@ -23,17 +23,17 @@ function selectValidator(validators) {
   }
 }
 
-// ---------------------------
+
 // 3. Клас Блоку
-// ---------------------------
+
 class Block {
   constructor(index, timestamp, data, previousHash, validator) {
-    this.index = index;               // Номер блоку
-    this.timestamp = timestamp;       // Час створення
-    this.data = data;                 // Дані
-    this.previousHash = previousHash; // Хеш попереднього блоку
-    this.validator = validator;       // Хто створив блок
-    this.hash = this.calculateHash(); // Поточний хеш
+    this.index = index;               
+    this.timestamp = timestamp;      
+    this.data = data;                 
+    this.previousHash = previousHash; 
+    this.validator = validator;      
+    this.hash = this.calculateHash();
   }
 
   calculateHash() {
@@ -50,9 +50,9 @@ class Block {
   }
 }
 
-// ---------------------------
+
 // 4. Клас Blockchain
-// ---------------------------
+
 class Blockchain {
   constructor(validators) {
     this.chain = [];
@@ -103,9 +103,9 @@ class Blockchain {
   }
 }
 
-// ---------------------------
+
 // 5. Демонстрація
-// ---------------------------
+
 const v1 = new Validator("Alice", 5);
 const v2 = new Validator("Bob", 10);
 const v3 = new Validator("Charlie", 1);
@@ -113,19 +113,19 @@ const v3 = new Validator("Charlie", 1);
 const validators = [v1, v2, v3];
 const myBlockchain = new Blockchain(validators);
 
-// Додаємо мінімум 5 блоків
+
 for (let i = 1; i <= 5; i++) {
   myBlockchain.addBlock({ amount: i * 10 });
 }
 
-// Перевірка цілісності
+
 console.log("Чи дійсний блокчейн?", myBlockchain.isChainValid());
 
-// Зламати дані у будь-якому блоці (наприклад, блок 2)
+
 myBlockchain.chain[2].data.amount = 999;
 console.log("Після зміни блоку, чи дійсний блокчейн?", myBlockchain.isChainValid());
 
-// Частота перемог валідаторів за 50 блоків
+
 const stats = {};
 for (let v of validators) stats[v.name] = 0;
 
@@ -139,3 +139,4 @@ console.log("Частота перемог валідаторів за 50 бло
 for (let name in stats) {
   console.log(`${name}: ${stats[name]} (${((stats[name]/50)*100).toFixed(1)}%)`);
 }
+
