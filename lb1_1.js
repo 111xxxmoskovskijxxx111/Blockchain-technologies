@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 
-// ----------------- Block -----------------
+// клас Block
 class Block {
   constructor(index, timestamp, data, previousHash = "") {
     this.index = index;
@@ -37,7 +37,7 @@ class Block {
   }
 }
 
-// ----------------- Blockchain -----------------
+// Клас Blockchain
 class Blockchain {
   constructor(difficulty = 3) {
     this.chain = [this.createGenesisBlock()];
@@ -80,7 +80,7 @@ class Blockchain {
   }
 }
 
-// ----------------- Demonstration: Classic Miner -----------------
+// Класический майнер
 console.log("=== CLASSIC MINER DEMO ===\n");
 let demoChain = new Blockchain(3);
 
@@ -88,20 +88,20 @@ demoChain.addBlock({ amount: 10 });
 demoChain.addBlock({ amount: 20 });
 demoChain.addBlock({ msg: "Text" });
 
-console.log("Is Chain Valid? →", demoChain.isChainValid()); // true
+console.log("Is Chain Valid? →", demoChain.isChainValid()); 
 
 // Хакер змінює дані
-console.log("\n⚠️ Hacking block 1 data...");
+console.log("\n Hacking block 1 data...");
 demoChain.chain[1].data = "Hacked!";
-console.log("Is Chain Valid after hack? →", demoChain.isChainValid()); // false
+console.log("Is Chain Valid after hack? →", demoChain.isChainValid()); 
 
 console.log("\nTotal nonce iterations (all mined blocks):", demoChain.totalNonceIterations());
 
-// ----------------- Alternative Miner -----------------
+// Альтернативний майнер
 class BlockAlt extends Block {
   mineBlockAlt() {
     console.time(`Alternative Block #${this.index}, time`);
-    while (this.hash[2] !== "3") { // третій символ хеша = "3"
+    while (this.hash[2] !== "3") { 
       this.nonce++;
       this.hash = this.calculateHash();
     }
@@ -118,7 +118,8 @@ altBlock1.mineBlockAlt();
 let altBlock2 = new BlockAlt(5, Date.now().toString(), { test: "alt2" }, altBlock1.hash);
 altBlock2.mineBlockAlt();
 
-// Хакер змінює дані альтернативного блока
-console.log("\n⚠️ Hacking altBlock2 data...");
+
+console.log("\n Hacking altBlock2 data...");
 altBlock2.data = "Hacked!";
 console.log("Alt Block hash valid? →", altBlock2.hash === altBlock2.calculateHash()); // false
+
