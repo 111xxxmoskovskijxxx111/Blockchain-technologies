@@ -10,9 +10,9 @@ class Validator {
   }
 }
 
-// ---------------------------
+
 // 2. Вибір валідатора
-// ---------------------------
+
 function selectValidator(validators) {
   const totalStake = validators.reduce((sum, v) => sum + v.stake, 0);
   let rand = Math.random() * totalStake;
@@ -139,4 +139,5 @@ console.log("Частота перемог валідаторів за 50 бло
 for (let name in stats) {
   console.log(`${name}: ${stats[name]} (${((stats[name]/50)*100).toFixed(1)}%)`);
 }
+
 
