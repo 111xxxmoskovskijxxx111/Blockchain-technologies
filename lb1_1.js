@@ -26,14 +26,14 @@ class Block {
 
   mineBlock(difficulty) {
     const prefix = "0".repeat(difficulty);
-    console.time(`Block #${this.index}, time`);
+    console.time(`Блок #${this.index}, час`);
     while (!this.hash.startsWith(prefix)) {
       this.nonce++;
       this.hash = this.calculateHash();
     }
-    console.timeEnd(`Block #${this.index}, time`);
-    console.log(`Hash: ${this.hash}`);
-    console.log(`Sum of nonce: ${this.nonce}\n`);
+    console.timeEnd(`Блок #${this.index}, час`);
+    console.log(`Хеш: ${this.hash}`);
+    console.log(`Кількість ітерацій nonce: ${this.nonce}\n`);
   }
 }
 
@@ -45,7 +45,7 @@ class Blockchain {
   }
 
   createGenesisBlock() {
-    return new Block(0, Date.now().toString(), "Genesis Block", "0");
+    return new Block(0, Date.now().toString(), "Початковий блок", "0");
   }
 
   getLatestBlock() {
@@ -80,46 +80,44 @@ class Blockchain {
   }
 }
 
-// Класический майнер
-console.log("=== CLASSIC MINER DEMO ===\n");
+// Класичний майнер
+console.log("=== ДЕМО: КЛАСИЧНИЙ МАЙНЕР ===\n");
 let demoChain = new Blockchain(3);
 
 demoChain.addBlock({ amount: 10 });
 demoChain.addBlock({ amount: 20 });
 demoChain.addBlock({ msg: "Text" });
 
-console.log("Is Chain Valid? →", demoChain.isChainValid()); 
+console.log("Чи ланцюг дійсний? →", demoChain.isChainValid());
 
 // Хакер змінює дані
-console.log("\n Hacking block 1 data...");
+console.log("\n  Злом даних блоку 1...");
 demoChain.chain[1].data = "Hacked!";
-console.log("Is Chain Valid after hack? →", demoChain.isChainValid()); 
+console.log("Чи ланцюг дійсний після злому? →", demoChain.isChainValid());
 
-console.log("\nTotal nonce iterations (all mined blocks):", demoChain.totalNonceIterations());
+console.log("\nЗагальна кількість ітерацій nonce (усі майнінги):", demoChain.totalNonceIterations());
 
 // Альтернативний майнер
 class BlockAlt extends Block {
   mineBlockAlt() {
-    console.time(`Alternative Block #${this.index}, time`);
-    while (this.hash[2] !== "3") { 
+    console.time(`Альтернативний блок #${this.index}, час`);
+    while (this.hash[2] !== "3") {
       this.nonce++;
       this.hash = this.calculateHash();
     }
-    console.timeEnd(`Alternative Block #${this.index}, time`);
-    console.log(`Hash: ${this.hash}`);
-    console.log(`Sum of nonce: ${this.nonce}\n`);
+    console.timeEnd(`Альтернативний блок #${this.index}, час`);
+    console.log(`Хеш: ${this.hash}`);
+    console.log(`Кількість ітерацій nonce: ${this.nonce}\n`);
   }
 }
 
-console.log("\n=== ALTERNATIVE MINER DEMO ===\n");
+console.log("\n=== ДЕМО: АЛЬТЕРНАТИВНИЙ МАЙНЕР ===\n");
 let altBlock1 = new BlockAlt(4, Date.now().toString(), { test: "alt" }, "0");
 altBlock1.mineBlockAlt();
 
 let altBlock2 = new BlockAlt(5, Date.now().toString(), { test: "alt2" }, altBlock1.hash);
 altBlock2.mineBlockAlt();
 
-
-console.log("\n Hacking altBlock2 data...");
+console.log("\n  Злом даних альтернативного блоку #5...");
 altBlock2.data = "Hacked!";
-console.log("Alt Block hash valid? →", altBlock2.hash === altBlock2.calculateHash()); // false
-
+console.log("Хеш альтернативного блоку валідний? →", altBlock2.hash === altBlock2.calculateHash()); // false
