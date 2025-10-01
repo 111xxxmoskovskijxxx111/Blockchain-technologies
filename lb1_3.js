@@ -16,7 +16,7 @@ async function getLatestBlockNumber() {
 
     return parseInt(data.result, 16);
   } catch (err) {
-    console.error("❌ Помилка при отриманні номера блоку:", err.message);
+    console.error("Помилка при отриманні номера блоку:", err.message);
     return null;
   }
 }
@@ -34,7 +34,7 @@ async function getBlockByNumber(blockNumber) {
 
     return data.result;
   } catch (err) {
-    console.error(`❌ Помилка при отриманні блоку ${blockNumber}:`, err.message);
+    console.error(` Помилка при отриманні блоку ${blockNumber}:`, err.message);
     return null;
   }
 }
@@ -43,7 +43,7 @@ async function main() {
   const latestBlockNumber = await getLatestBlockNumber();
   if (!latestBlockNumber) return;
 
-  console.log("✅ Останній блок Ethereum:", latestBlockNumber);
+  console.log(" Останній блок Ethereum:", latestBlockNumber);
 
   const latestBlock = await getBlockByNumber(latestBlockNumber);
   if (!latestBlock) return;
@@ -51,11 +51,11 @@ async function main() {
   const timestamp = parseInt(latestBlock.timestamp, 16);
   const date = new Date(timestamp * 1000);
 
-  console.log("📌 Номер блоку:", parseInt(latestBlock.number, 16));
-  console.log("⏰ Час створення:", date.toString());
-  console.log("🔗 Кількість транзакцій:", latestBlock.transactions.length);
-  console.log("🆔 Хеш блоку:", latestBlock.hash);
-  console.log("↩️ Хеш попереднього блоку:", latestBlock.parentHash);
+  console.log(" Номер блоку:", parseInt(latestBlock.number, 16));
+  console.log(" Час створення:", date.toString());
+  console.log(" Кількість транзакцій:", latestBlock.transactions.length);
+  console.log(" Хеш блоку:", latestBlock.hash);
+  console.log("Хеш попереднього блоку:", latestBlock.parentHash);
 
   // середня кількість транзакцій за 5 блоків
   let totalTx = 0;
@@ -68,7 +68,8 @@ async function main() {
     }
   }
   const avgTx = totalTx / count;
-  console.log("📊 Середня кількість транзакцій за останні 5 блоків:", avgTx.toFixed(2));
+  console.log(" Середня кількість транзакцій за останні 5 блоків:", avgTx.toFixed(2));
 }
 
 main();
+
